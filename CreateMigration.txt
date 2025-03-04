@@ -1,0 +1,7 @@
+dotnet ef migrations add AddTransactionProductsTable --project BakeSale.Infrastructure --startup-project BakeSale.API
+
+dotnet ef database update --project BakeSale.Infrastructure --startup-project BakeSale.API
+
+
+//revert to concrete migration
+dotnet ef database update AddTransactionProductsTable --project BakeSale.Infrastructure --startup-project BakeSale.API

@@ -1,0 +1,23 @@
+{
+    "EUR": {
+        "Bills": {
+            "500": "FiveHundredEuros.png",
+            "200": "TwoHundredEuros.png",
+            "100": "HundredEuros.png",
+            "50": "FiftyEuros.png",
+            "20": "TwentyEuros.png",
+            "10": "TenEuros.png",
+            "5": "FiveEuros.png"
+        },
+        "Coins": {
+            "2": "TwoEuros.png",
+            "1": "OneEuro.png",
+            "0.50": "FiftyCent.png",
+            "0.20": "TwentyCent.png",
+            "0.10": "TenCent.png",
+            "0.05": "FiveCent.png",
+            "0.02": "TwoCent.png",
+            "0.01": "OneCent.png"
+        }
+    }
+}
