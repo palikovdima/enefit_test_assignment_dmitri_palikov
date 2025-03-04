@@ -1,11 +1,12 @@
 # BakeSale
 
-BakeSale is a web application for managing a bake sale, including product listings, cart management, and checkout processes. The project is built with .NET 8 for the backend and a React/TypeScript client application.
+BakeSale is a web application for managing a bake sale in multiple sessions, including product listings, cart management, and checkout processes. The project is built with .NET 8 for the backend and a React/TypeScript client application.
 
 ## Table of Contents
 
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
+- [Usage](#usage)
 - [License](#license)
 
 ## Project Structure
@@ -31,7 +32,12 @@ The project is organized into the following main folders:
 1. Clone the repository:
 
 
-git clone https://github.com/palikovdima/enefit_test_assignment_dmitri_palikov.git cd BakeSale
+git clone https://github.com/palikovdima/enefit_test_assignment_dmitri_palikov.git
+
+
+2. Navigate to the solution folder:
+
+cd enefit_test_assignment_dmitri_palikov
 
 
 2. Navigate to the API project folder:
@@ -69,7 +75,19 @@ npm install
 
 3. Start the client application:
 
-npm start
+dotnet run
+
+
+## Usage
+
+
+This application uses cookies and session-based storage for managing user sessions. Some browsers might have strict privacy settings that could block cookies or session storage. 
+Try using multiple browsers to see how one user's actions affect other sessions.
+Cart cookie's lifespan is 30 minutes after the creation date.
+
+The API runs at: https://localhost:7190
+The Frontend runs at: https://localhost:62170
+Swagger UI for API documentation: https://localhost:7190/swagger
 
 
 ## License
