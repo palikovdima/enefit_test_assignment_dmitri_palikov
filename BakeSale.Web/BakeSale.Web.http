@@ -1,6 +1,0 @@
-@BakeSale.Web_HostAddress = http://localhost:5221
-
-GET {{BakeSale.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
