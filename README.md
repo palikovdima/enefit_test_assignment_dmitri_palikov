@@ -1,6 +1,6 @@
 # BakeSale
 
-BakeSale is a web application for managing a bake sale in multiple sessions, including product listings, cart management, and checkout processes. The project is built with .NET 8 for the backend and a React/TypeScript client application.
+BakeSale is a web application for managing a bake sale in multiple sessions, including product listings, cart management, and checkout processes. The project is built with .NET 8 for the backend and a Vite/React/TypeScript client application.
 
 ## Table of Contents
 
@@ -81,9 +81,10 @@ dotnet run
 ## Usage
 
 
-This application uses cookies and session-based storage for managing user sessions. Some browsers might have strict privacy settings that could block cookies or session storage. 
-Try using multiple browsers to see how one user's actions affect other sessions.
-Cart cookie's lifespan is 30 minutes after the creation date.
+This application uses cookies and session-based storage for managing user sessions.  <br>
+Some browsers might have strict privacy settings that could block cookies or session storage.  <br>
+Try using multiple browsers to see how one user's actions affect other sessions. <br>
+Cart cookie's lifespan is 30 minutes after the creation date. <br>
 
 The API runs at: https://localhost:7190 <br>
 The Frontend runs at: https://localhost:62170 <br>
