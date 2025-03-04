@@ -85,8 +85,8 @@ This application uses cookies and session-based storage for managing user sessio
 Try using multiple browsers to see how one user's actions affect other sessions.
 Cart cookie's lifespan is 30 minutes after the creation date.
 
-The API runs at: https://localhost:7190
-The Frontend runs at: https://localhost:62170
+The API runs at: https://localhost:7190 <br>
+The Frontend runs at: https://localhost:62170 <br>
 Swagger UI for API documentation: https://localhost:7190/swagger
 
 
