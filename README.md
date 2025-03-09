@@ -46,17 +46,22 @@ cd enefit_test_assignment_dmitri_palikov
 cd BakeSale.API
 
 
-3. Restore the .NET dependencies:
+3. Change the variables(ImagePath, CSVPath, CurrenciesPath, CurrencyImagesPath) to your machine local paths in appsettings.json file. <br>
+
+file location : BakeSale\BakeSale.API\appsettings.json<br>
+
+
+4. Restore the .NET dependencies:
 
 dotnet restore
 
 
-4. Update the database:
+5. Update the database:
 
 dotnet ef database update
 
 
-5. Run the API:
+6. Run the API:
 
 dotnet run
 
@@ -97,8 +102,9 @@ Swagger UI for API documentation: https://localhost:7190/swagger
 
 If I had more time, I would have made the following improvements to the project:<br>
 
-Less Hardcoded Values: <br>
+Less Hardcoded Values: <br> (7.03 DONE)
 * I would have used less hardcoded values and replaced remaining with configuration files, making the application more flexible and easier to maintain.<br>
+* 7.03 update: I still have some hardcoded values like: information/warning/error strings and cookie/hub names hardcoded, but they are not so critical right now. <br>
 
 Integration Tests: <br>
 * I would have implemented integration tests to ensure the application's components work seamlessly together, and to cover end-to-end functionality more effectively.<br>
@@ -106,8 +112,10 @@ Integration Tests: <br>
 Admin Page and Input Fields: <br>
 * I would have added an admin page where items could be inserted or updated via input fields, providing a more user-friendly interface for managing products and cart data.<br>
 
-Docker Configuration: <br>
+Docker Configuration: <br> (9.03 DONE)
 * I would have configured Docker containers for both the backend application and the database to streamline deployment.<br>
+
+
 
 
 ## License
