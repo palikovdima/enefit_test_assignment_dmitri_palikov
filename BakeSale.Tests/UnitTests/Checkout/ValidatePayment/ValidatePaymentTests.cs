@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Helpers;
-using BakeSale.Domain.Entities;
-using BakeSale.Tests.Mocks;
+using API.Configurations.Session;
+using Tests.Mocks;
+using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
-namespace BakeSale.Tests.UnitTests.Checkout.ValidatePayment
+namespace Tests.UnitTests.Checkout.ValidatePayment
 {
     public class ValidatePaymentTests : BaseCheckoutTest
     {

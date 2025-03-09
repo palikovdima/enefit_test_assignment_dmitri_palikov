@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BakeSale.Domain\BakeSale.Domain.csproj" />
-    <ProjectReference Include="..\BakeSale.Infrastructure\BakeSale.Infrastructure.csproj" />
+    <ProjectReference Include="..\BakeSale.Domain\Domain.csproj" />
+    <ProjectReference Include="..\BakeSale.Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

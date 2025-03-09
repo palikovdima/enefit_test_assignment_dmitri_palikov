@@ -1,10 +1,10 @@
-﻿using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BakeSale.API.Controllers
+namespace API.Controllers
 {
 
     /// <summary>

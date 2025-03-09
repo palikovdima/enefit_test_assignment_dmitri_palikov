@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Tests.Mocks;
 
-namespace BakeSale.Tests.UnitTests.Checkout.CalculateChange
+namespace Tests.UnitTests.Checkout.CalculateChange
 {
     public class CalculateChangeBackAmountTests : BaseCheckoutTest
     {

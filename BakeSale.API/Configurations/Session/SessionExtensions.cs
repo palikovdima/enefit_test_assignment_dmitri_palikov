@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
-namespace BakeSale.API.Helpers
+namespace API.Configurations.Session
 {
     public static class SessionExtensions
     {

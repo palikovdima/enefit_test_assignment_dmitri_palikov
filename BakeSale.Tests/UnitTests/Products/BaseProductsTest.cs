@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Controllers;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+using API.Controllers;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace BakeSale.Tests.UnitTests.Products
+namespace Tests.UnitTests.Products
 {
     public abstract class BaseProductsTest
     {

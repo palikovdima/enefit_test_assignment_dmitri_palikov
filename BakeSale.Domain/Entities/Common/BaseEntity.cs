@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BakeSale.Domain.Entities.Common
+namespace Domain.Entities.Common
 {
     public abstract class BaseEntity
     {

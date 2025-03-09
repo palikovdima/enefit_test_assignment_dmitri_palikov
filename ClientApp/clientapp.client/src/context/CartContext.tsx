@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { API_BASE_URL } from '../config/config';
+import { CART_CLEAR_URL, CART_FETCH_URL, CART_TOTAL_AMOUNT_URL } from '../config/config';
 
 interface Product {
     id: number;
@@ -32,7 +32,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const fetchCart = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/cart/`, {
+            const response = await fetch(`${CART_FETCH_URL}`, {
                 method: "GET",
                 credentials: "include",
             });
@@ -50,7 +50,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const clearCart = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/cart/clear`, {
+            const response = await fetch(`${CART_CLEAR_URL}`, {
                 method: "GET",
                 credentials: "include",
             });
@@ -69,7 +69,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const getTotalAmount = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/cart/totalAmount`, {
+            const response = await fetch(`${CART_TOTAL_AMOUNT_URL}`, {
                 method: "GET",
                 credentials: "include",
             });

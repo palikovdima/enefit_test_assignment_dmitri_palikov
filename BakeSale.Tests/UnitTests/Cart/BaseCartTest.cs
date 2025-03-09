@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Controllers;
-using BakeSale.API.Helpers;
-using BakeSale.API.Hubs;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
-using BakeSale.Tests.Mocks;
+using API.Configurations.Session;
+using API.Controllers;
+using API.Hubs;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Tests.Mocks;
 
-namespace BakeSale.Tests.UnitTests.Cart
+namespace Tests.UnitTests.Cart
 {
     public abstract class BaseCartTest
     {

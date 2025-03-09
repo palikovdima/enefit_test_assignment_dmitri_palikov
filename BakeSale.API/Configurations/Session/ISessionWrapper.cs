@@ -1,4 +1,4 @@
-﻿namespace BakeSale.API.Helpers
+﻿namespace API.Configurations.Session
 {
     public interface ISessionWrapper
     {

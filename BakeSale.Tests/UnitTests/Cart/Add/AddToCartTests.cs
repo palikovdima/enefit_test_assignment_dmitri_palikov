@@ -1,15 +1,14 @@
-﻿using BakeSale.API.Controllers;
-using BakeSale.API.Helpers;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
-using BakeSale.Tests.Mocks;
+﻿using API.Controllers;
+using Domain.Interfaces;
+using Tests.Mocks;
+using Domain.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace BakeSale.Tests.UnitTests.Cart.Add
+namespace Tests.UnitTests.Cart.Add
 {
     public class AddToCartTests : BaseCartTest
     {

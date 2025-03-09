@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.ComponentModel.DataAnnotations.Schema;
-using BakeSale.Domain.Entities.Common;
+using Domain.Entities.Common;
 
-namespace BakeSale.Domain.Entities
+namespace Domain.Entities
 {
     public class Transaction : BaseEntity
     {

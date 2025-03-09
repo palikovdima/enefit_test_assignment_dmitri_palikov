@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace BakeSale.API.Helpers
+namespace API.Configurations.Session
 {
     public class SessionWrapper : ISessionWrapper
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace BakeSale.Tests.Mocks
+namespace Tests.Mocks
 {
     public class FakeSession : ISession
     {

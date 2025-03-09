@@ -1,13 +1,13 @@
-﻿using BakeSale.Domain.Entities.Common;
-using BakeSale.Domain.Exceptions;
-using BakeSale.Domain.Interfaces;
+﻿using Domain.Exceptions;
+using Domain.Entities.Common;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BakeSale.Infrastructure.Repositories
+namespace Infrastructure.Repositories
 {
     public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {

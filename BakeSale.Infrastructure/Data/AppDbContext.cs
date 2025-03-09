@@ -1,10 +1,10 @@
-﻿using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BakeSale.Infrastructure.Data
+namespace Infrastructure.Data
 {
     public class AppDbContext : DbContext, IDataContext
     {

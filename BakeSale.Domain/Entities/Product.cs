@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.Domain.Entities.Common;
+using Domain.Entities.Common;
 
-namespace BakeSale.Domain.Entities
+namespace Domain.Entities
 {
     public class Product : BaseEntity
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.Domain.Entities.Common;
+using Domain.Entities.Common;
 
-namespace BakeSale.Domain.Interfaces
+namespace Domain.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {

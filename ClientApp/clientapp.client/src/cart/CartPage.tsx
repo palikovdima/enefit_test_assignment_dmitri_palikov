@@ -1,8 +1,8 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect} from 'react';
 import './CartPage.css';
 import { useCart } from '../context/CartContext';
+import { CHECKOUT_PAGE_URL, PRODUCTS_PAGE_URL } from '../config/config';
 
 function CartPage() {
     const { cart, clearCart, fetchCart, totalAmount } = useCart();
@@ -43,8 +43,8 @@ function CartPage() {
             </main>
             <footer className="footer">
                 <p className="total-amount">Total Amount: {"\u20AC"}{totalAmount}</p>
-                <button onClick={() => navigate('/products')}>Back to Store</button>
-                <button className="checkout-button" onClick={() => navigate('/checkout')}>Checkout</button>
+                <button onClick={() => navigate({ pathname: PRODUCTS_PAGE_URL })}>Back to Store</button>
+                <button className="checkout-button" onClick={() => navigate({ pathname: CHECKOUT_PAGE_URL })}>Checkout</button>
                 <button className="reset-button" onClick={clearCart}>Clear Cart</button>
             </footer>
         </div>

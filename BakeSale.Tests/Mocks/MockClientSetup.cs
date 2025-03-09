@@ -1,8 +1,8 @@
-﻿using BakeSale.API.Hubs;
+﻿using API.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Moq;
 
-namespace BakeSale.Tests.Mocks;
+namespace Tests.Mocks;
 public class MockClientSetup
 {
     public static void SetupMockClients(Mock<IHubContext<ProductHub>> mockProductHubContext, Mock<IHubContext<CartHub>> mockCartHubContext)

@@ -1,15 +1,16 @@
-﻿using BakeSale.API.Controllers;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+﻿using API.Controllers;
+using Domain.Interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tests.UnitTests.Products;
 using Xunit;
 
-namespace BakeSale.Tests.UnitTests.Products.Get
+namespace Tests.UnitTests.Products.Get
 {
     public class GetProductsTests : BaseProductsTest
     {

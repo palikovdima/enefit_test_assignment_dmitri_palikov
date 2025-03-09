@@ -3,26 +3,32 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Domain.Service.Environment;
 using Microsoft.Extensions.Logging;
 
-namespace BakeSale.Domain.Service
+namespace Domain.Service.Currency
 {
     public class CurrencyService
     {
         private Dictionary<string, CurrencyUnit>? _currencies;
         private readonly ILogger<CurrencyService> _logger;
+        private readonly EnvironmentSettingsService _envSettingsService;
 
-        public CurrencyService(ILogger<CurrencyService> logger)
+        public CurrencyService(ILogger<CurrencyService> logger, EnvironmentSettingsService envSettingsService)
         {
+            _envSettingsService = envSettingsService;
             _logger = logger;
             LoadCurrencies();
         }
 
         private void LoadCurrencies()
         {
-            string basePath = AppContext.BaseDirectory;
-            string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "BakeSale.API"));
-            string filePath = Path.Combine(apiPath, "Resources", "currencies.json");
+            //string basePath = AppContext.BaseDirectory;
+            //string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "app"));
+            //string filePath = Path.Combine(apiPath, "BakeSale.Api", "Resources", "currencies.json");
+            //string filePath = Path.GetFullPath("/app/Resources/currencies.json");
+
+            string filePath = Path.GetFullPath(_envSettingsService.GetCurrenciesPath());
 
             if (!File.Exists(filePath))
             {

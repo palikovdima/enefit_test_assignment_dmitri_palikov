@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BakeSale.Domain.Entities
+namespace Domain.Entities
 {
     public class Change
     {

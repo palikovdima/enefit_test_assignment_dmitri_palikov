@@ -1,10 +1,9 @@
 ﻿import { useEffect, useState } from 'react';
 import * as signalR from "@microsoft/signalr";
 import './ProductsPage.css';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { API_BASE_URL } from '../config/config';
+import { CART_HUB_URL, CART_FETCH_URL, PRODUCT_HUB_URL, PRODUCTS_FETCH_URL, CART_PAGE_URL } from '../config/config';
 
 interface Product {
     id: number;
@@ -33,7 +32,7 @@ function ProductsPage() {
         refreshTotalAmount();
 
         const productConnection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:7190/productHub")
+            .withUrl(`${PRODUCT_HUB_URL}`)
             .withAutomaticReconnect()
             .build();
 
@@ -46,7 +45,7 @@ function ProductsPage() {
         });
 
         const cartConnection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:7190/cartHub")
+            .withUrl(`${CART_HUB_URL}`)
             .withAutomaticReconnect()
             .build();
 
@@ -97,7 +96,7 @@ function ProductsPage() {
             <footer className="footer">
                 <div className="footer-content">
                     <p className="total-amount">Total Amount: {"\u20AC"}{totalAmount}</p>
-                    <button className="checkout-button" onClick={() => navigate('/cart')}>View Cart</button>
+                    <button className="checkout-button" onClick={() => navigate({ pathname:CART_PAGE_URL })}>View Cart</button>
                     <button className="reset-button" onClick={clearCart}>Clear Cart</button>
                 </div>
             </footer>
@@ -105,7 +104,7 @@ function ProductsPage() {
     );
 
     async function populateProductsData() {
-        const response = await fetch(`${API_BASE_URL}/products`, {
+        const response = await fetch(`${PRODUCTS_FETCH_URL}`, {
             credentials: 'include'
         });
         if (response.ok) {
@@ -119,7 +118,7 @@ function ProductsPage() {
     async function addProductToCart(productId: number) {
         console.info(`Adding product ${productId} to cart...`);
         try {
-            const response = await fetch(`${API_BASE_URL}/cart/${productId}`, {
+            const response = await fetch(`${CART_FETCH_URL}/${productId}`, {
                 method: "GET",
                 credentials: "include",
             });

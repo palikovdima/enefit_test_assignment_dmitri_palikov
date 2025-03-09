@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Hubs;
+using API.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Moq;
 
-namespace BakeSale.Tests.Mocks
+namespace Tests.Mocks
 {
     public static class ClientVerificationHelper
     {

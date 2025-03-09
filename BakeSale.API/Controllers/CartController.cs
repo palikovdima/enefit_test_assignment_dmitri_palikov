@@ -1,15 +1,15 @@
-﻿using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using BakeSale.API.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.CodeAnalysis;
-using BakeSale.API.Helpers;
+using API.Configurations.Session;
+using API.Hubs;
+using Domain.Entities;
+using Domain.Interfaces;
 
 
-namespace BakeSale.API.Controllers
+namespace API.Controllers
 {
     /// <summary>
     /// Handles operations related to the shopping cart.

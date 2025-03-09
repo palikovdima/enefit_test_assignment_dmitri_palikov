@@ -1,26 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using Domain.Models;
+using Domain.Service.Environment;
 using Microsoft.Extensions.Logging;
 
-namespace BakeSale.Domain.Service
+namespace Domain.Service.Currency
 {
     public class CurrencyImageService
     {
         private Dictionary<string, CurrencyImage>? _currencyImages;
         private readonly ILogger<CurrencyImageService> _logger;
 
-        public CurrencyImageService(ILogger<CurrencyImageService> logger)
+        private readonly EnvironmentSettingsService _envSettingsService;
+
+
+        public CurrencyImageService(ILogger<CurrencyImageService> logger, EnvironmentSettingsService envSettingsService)
         {
             _logger = logger;
+            _envSettingsService = envSettingsService;
             LoadCurrencyImages();
         }
 
         private void LoadCurrencyImages()
         {
-            string basePath = AppContext.BaseDirectory;
-            string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "BakeSale.API"));
-            string filePath = Path.Combine(apiPath, "Resources", "currencyImages.json");
+            //string basePath = AppContext.BaseDirectory;
+            //string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "BakeSale.API"));
+            //string filePath = Path.Combine(apiPath, "app", "Resources", "currencyImages.json");
+
+            //string filePath = Path.GetFullPath("/app/Resources/currencyImages.json");
+            string filePath = Path.GetFullPath(_envSettingsService.GetCurrencyImagesPath());
 
             if (!File.Exists(filePath))
             {
@@ -41,7 +50,22 @@ namespace BakeSale.Domain.Service
                     throw new JsonException("Failed to deserialize currency images.");
                 }
 
-                _logger.LogInformation("Successfully loaded currency images.");
+                foreach (var currencyImage in _currencyImages.Values)
+                {
+                    foreach (var billKey in currencyImage.Bills.Keys.ToList())
+                    {
+                        string newBillImagePath = $"{_envSettingsService.GetStaticFilesOnBackendPath()}/Change/Bills/{currencyImage.Bills[billKey]}";
+                        currencyImage.Bills[billKey] = newBillImagePath;
+                    }
+
+                    foreach (var coinKey in currencyImage.Coins.Keys.ToList())
+                    {
+                        string newCoinImagePath = $"{_envSettingsService.GetStaticFilesOnBackendPath()}/Change/Coins/{currencyImage.Coins[coinKey]}";
+                        currencyImage.Coins[coinKey] = newCoinImagePath;
+                    }
+                }
+
+                _logger.LogInformation("Successfully loaded and updated currency images.");
             }
             catch (Exception ex)
             {

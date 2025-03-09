@@ -1,9 +1,9 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "../context/CartContext";
 import CartPage from "../cart/CartPage";
 import CheckoutPage from "../checkout/CheckoutPage";
 import ProductsPage from "./ProductsPage";
+import { PRODUCTS_PAGE_URL, CART_PAGE_URL, CHECKOUT_PAGE_URL } from "../config/config";
 
 function ProductsPageRouter() {
     return (
@@ -11,9 +11,9 @@ function ProductsPageRouter() {
             <Router>
                 <Routes>
                     <Route path="/" element={<ProductsPage />} />
-                    <Route path="/products" element={<ProductsPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path={PRODUCTS_PAGE_URL} element={<ProductsPage />} />
+                    <Route path={CART_PAGE_URL} element={<CartPage />} />
+                    <Route path={CHECKOUT_PAGE_URL} element={<CheckoutPage />} />
                 </Routes>
             </Router>
         </CartProvider>

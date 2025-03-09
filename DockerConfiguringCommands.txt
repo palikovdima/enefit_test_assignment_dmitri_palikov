@@ -1,0 +1,8 @@
+// Disable all containers
+docker-compose down -v
+
+// Build and run all containers
+docker-compose up --build
+
+// List all containers
+docker ps -a

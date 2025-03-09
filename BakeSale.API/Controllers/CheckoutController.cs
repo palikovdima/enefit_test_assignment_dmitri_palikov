@@ -1,15 +1,17 @@
-﻿using BakeSale.API.Helpers;
-using BakeSale.API.Hubs;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
-using BakeSale.Domain.Service;
+﻿using API.Configurations.Session;
+using API.Hubs;
+using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Models;
+using Domain.Service.Currency;
+using Domain.Service.Environment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Linq;
 using System.Text.Json;
 
-namespace BakeSale.API.Controllers
+namespace API.Controllers
 {
     /// <summary>
     /// Manages checkout and payment processing operations.
@@ -27,8 +29,9 @@ namespace BakeSale.API.Controllers
         private readonly CurrencyService _currencyService;
         private readonly CurrencyImageService _currencyImageService;
 
-        private readonly ILogger<CheckoutController> _logger;
+        private readonly EnvironmentSettingsService _envSettingsService;
 
+        private readonly ILogger<CheckoutController> _logger;
 
         private const string SessionKeyCart = "Cart";
         private ISession Session => HttpContext.Session;
@@ -36,15 +39,17 @@ namespace BakeSale.API.Controllers
         public CheckoutController(IRepository<Transaction> transactionRepository, IRepository<Product> productRepository,
              IRepository<TransactionProduct> transactionProductRepository, IHubContext<ProductHub> productHubContext, 
              IHubContext<CartHub> cartHubContext, ILogger<CheckoutController> logger,
-             ILogger<CurrencyService> currencyServiceLogger, ILogger<CurrencyImageService> currencyImageServiceLogger)
+             ILogger<CurrencyService> currencyServiceLogger, ILogger<CurrencyImageService> currencyImageServiceLogger,
+             EnvironmentSettingsService envSettingsService)
         {
             _transactionRepository = transactionRepository;
             _productRepository = productRepository;
             _transactionProductRepository = transactionProductRepository;
             _productHubContext = productHubContext;
             _cartHubContext = cartHubContext;
-            _currencyService = new CurrencyService(currencyServiceLogger);
-            _currencyImageService = new CurrencyImageService(currencyImageServiceLogger);
+            _currencyService = new CurrencyService(currencyServiceLogger, envSettingsService);
+            _currencyImageService = new CurrencyImageService(currencyImageServiceLogger, envSettingsService);
+            _envSettingsService = envSettingsService;
             _logger = logger;
         }
 
@@ -214,6 +219,10 @@ namespace BakeSale.API.Controllers
                 }
             }
             _logger.LogInformation("GetChange method completed. Final change: {Change}", change);
+            foreach (var item in change.Bills)
+            {
+                _logger.LogInformation("Bill: {BillName}, Count: {Count}, Image: {Image}", item.Key, item.Value.Count, item.Value.Image);
+            }
 
             return change;
         }

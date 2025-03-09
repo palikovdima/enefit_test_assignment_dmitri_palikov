@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace BakeSale.API.Hubs
+namespace API.Hubs
 {
     public class ProductHub : Hub
     {

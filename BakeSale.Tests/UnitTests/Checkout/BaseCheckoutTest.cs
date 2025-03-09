@@ -1,21 +1,25 @@
-﻿using BakeSale.API.Controllers;
-using BakeSale.API.Hubs;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
-using BakeSale.Domain.Service;
-using BakeSale.Tests.Mocks;
+﻿using API.Configurations.Settings;
+using API.Controllers;
+using API.Hubs;
+using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Models;
+using Domain.Service.Currency;
+using Domain.Service.Environment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Tests.Mocks;
 using Xunit;
 
-namespace BakeSale.Tests.UnitTests.Checkout
+namespace Tests.UnitTests.Checkout
 {
     public class BaseCheckoutTest
     {
@@ -27,6 +31,7 @@ namespace BakeSale.Tests.UnitTests.Checkout
         protected readonly Mock<ILogger<CheckoutController>> _loggerMock;
         protected readonly Mock<ILogger<CurrencyService>> _currencyServiceLoggerMock;
         protected readonly Mock<ILogger<CurrencyImageService>> _currencyImageServiceLoggerMock;
+        protected readonly Mock<EnvironmentSettingsService> _environmentSettingsServiceMock;
         protected readonly CheckoutController _controller;
 
         public BaseCheckoutTest()
@@ -39,6 +44,7 @@ namespace BakeSale.Tests.UnitTests.Checkout
             _loggerMock = new Mock<ILogger<CheckoutController>>();
             _currencyServiceLoggerMock = new Mock<ILogger<CurrencyService>>();
             _currencyImageServiceLoggerMock = new Mock<ILogger<CurrencyImageService>>();
+            _environmentSettingsServiceMock = new Mock<EnvironmentSettingsService>(GetEnvironmentSettings());
 
             _controller = new CheckoutController(
                 _transactionRepositoryMock.Object,
@@ -48,7 +54,8 @@ namespace BakeSale.Tests.UnitTests.Checkout
                 _cartHubContextMock.Object,
                 _loggerMock.Object,
                 _currencyServiceLoggerMock.Object,
-                _currencyImageServiceLoggerMock.Object
+                _currencyImageServiceLoggerMock.Object,
+                _environmentSettingsServiceMock.Object
             );
             MockClientSetup.SetupMockClients(_productHubContextMock, _cartHubContextMock);
         }
@@ -56,6 +63,20 @@ namespace BakeSale.Tests.UnitTests.Checkout
         protected void VerifyClientProxies()
         {
             ClientVerificationHelper.VerifyClientProxies(_productHubContextMock, _cartHubContextMock);
+        }
+
+        protected EnvironmentSettings GetEnvironmentSettings()
+        {
+            return new EnvironmentSettings
+            {
+                FrontendUrl = "https://localhost:62170",
+                BackendUrl = "https://localhost:7190",
+                ImagePath = "C:/Users/palik/source/repos/BakeSale/BakeSale.API/Config/Images",
+                CSVPath = "C:/Users/palik/source/repos/BakeSale/BakeSale.API/Config/CSV",
+                StaticFilesPath = "/images",
+                CurrenciesPath = "C:/Users/palik/source/repos/BakeSale/BakeSale.API/Resources/currencies.json",
+                CurrencyImagesPath = "C:/Users/palik/source/repos/BakeSale/BakeSale.API/Resources/currencyImages.json"
+            };
         }
     }
 }

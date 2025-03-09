@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BakeSale.API\BakeSale.API.csproj" />
+    <ProjectReference Include="..\BakeSale.API\API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

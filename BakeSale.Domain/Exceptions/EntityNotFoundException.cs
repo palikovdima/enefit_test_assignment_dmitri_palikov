@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BakeSale.Domain.Exceptions
+namespace Domain.Exceptions
 {
     public class EntityNotFoundException : Exception
     {

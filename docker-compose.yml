@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: BakeSale.API/Dockerfile
+    ports:
+      - "7190:7190"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=db;Database=bakesale;Username=postgres;Password=postgres
+    depends_on:
+      - db
+    volumes:
+      - ./BakeSale.API/Config/CSV:/app/Config/CSV
+      - ./BakeSale.API/Config/Images:/app/Config/Images
+      - ./BakeSale.API/Resources:/app/Resources
+
+  frontend:
+    build:  
+      context: .
+      dockerfile: ClientApp/clientapp.client/Dockerfile
+    ports:
+      - "62170:80"
+    depends_on:
+      - backend
+    environment:
+      - DOCKER=true
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: bakesale
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./BakeSale.API/Config/CSV:/app/Config/CSV
+
+volumes:
+  postgres_data:

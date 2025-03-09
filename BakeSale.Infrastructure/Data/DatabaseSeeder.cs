@@ -1,5 +1,6 @@
-﻿using BakeSale.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,16 +11,23 @@ using System.Formats.Asn1;
 using CsvHelper.Configuration;
 using System.Collections;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Domain.Models;
+using Domain.Entities;
+using Domain.Service.Environment;
 
-namespace BakeSale.Infrastructure.Data
+namespace Infrastructure.Data
 {
     public class DatabaseSeeder
     {
         private readonly ILogger<DatabaseSeeder> _logger;
+        private readonly EnvironmentSettingsService _envSettingsService;
 
-        public DatabaseSeeder(ILogger<DatabaseSeeder> logger)
+
+        public DatabaseSeeder(ILogger<DatabaseSeeder> logger, EnvironmentSettingsService envSettingsService)
         {
             _logger = logger;
+            _envSettingsService = envSettingsService;
         }
 
         public async Task SeedAsync(AppDbContext context)
@@ -33,7 +41,25 @@ namespace BakeSale.Infrastructure.Data
             await context.Transactions.ExecuteDeleteAsync();
 
 
-            var edibles = LoadProductsFromCsv("Config\\CSV\\Edibles.csv", true);
+            //string basePath = AppContext.BaseDirectory;
+            //string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "BakeSale.API"));
+            //string ediblesPath = Path.Combine(apiPath, "Config", "CSV", "Edibles.csv");
+            //string donatedItemsPath = Path.Combine(apiPath, "Config", "CSV", "DonatedItems.csv");
+
+            //string basePath = AppContext.BaseDirectory;
+            //string apiPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", "..", "..", "BakeSale.API"));
+            //string ediblesPath = Path.GetFullPath("/app/Config/CSV/Edibles.csv");
+            //string donatedItemsPath = Path.GetFullPath("/app/Config/CSV/DonatedItems.csv");
+
+            string ediblesPath = Path.GetFullPath($"{_envSettingsService.GetCSVPath()}/Edibles.csv");
+            string donatedItemsPath = Path.GetFullPath($"{_envSettingsService.GetCSVPath()}/DonatedItems.csv");
+
+            _logger.LogInformation("ediblesPath path in DatabaseSeeder: {ediblesPath}", ediblesPath);
+            _logger.LogInformation("donatedItemsPath path in DatabaseSeeder: {donatedItemsPath}", donatedItemsPath);
+
+
+
+            var edibles = LoadProductsFromCsv(ediblesPath, true);
 
             if (!edibles.Any())
             {
@@ -41,7 +67,7 @@ namespace BakeSale.Infrastructure.Data
                 return;
             }
 
-            var donatedItems = LoadProductsFromCsv("Config\\CSV\\DonatedItems.csv", false);
+            var donatedItems = LoadProductsFromCsv(donatedItemsPath, false);
 
             if (!donatedItems.Any())
             {
@@ -90,9 +116,11 @@ namespace BakeSale.Infrastructure.Data
 
                 foreach (var product in records)
                 {
+                    //// ? $"http://localhost:7190/app/images/Products/Edibles/{product.ImageSource}"
+                    //// : $"http://localhost:7190/app/images/Products/DonatedItems/{product.ImageSource}";
                     product.ImageSource = isEdible
-                        ? $"https://localhost:7190/images/Products/Edibles/{product.ImageSource}"
-                        : $"https://localhost:7190/images/Products/DonatedItems/{product.ImageSource}";
+                        ? $"{_envSettingsService.GetStaticFilesOnBackendPath()}/Products/Edibles/{product.ImageSource}"
+                        : $"{_envSettingsService.GetStaticFilesOnBackendPath()}/Products/DonatedItems/{product.ImageSource}";
                 }
 
                 return records;

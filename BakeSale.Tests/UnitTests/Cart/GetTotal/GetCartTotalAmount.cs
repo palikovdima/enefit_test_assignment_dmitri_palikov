@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Controllers;
-using BakeSale.API.Helpers;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+using API.Controllers;
+using Domain.Interfaces;
+using Domain.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace BakeSale.Tests.UnitTests.Cart.GetTotal
+namespace Tests.UnitTests.Cart.GetTotal
 {
     public class GetCartTotalAmountTests : BaseCartTest
     {

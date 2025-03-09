@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BakeSale.API.Controllers;
-using BakeSale.API.Helpers;
-using BakeSale.Domain.Entities;
-using BakeSale.Domain.Interfaces;
+using API.Controllers;
+using Domain.Interfaces;
+using Domain.Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -14,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 
-namespace BakeSale.Tests.UnitTests.Cart.Clear
+namespace Tests.UnitTests.Cart.Clear
 {
     public class ClearCartTests : BaseCartTest
     {
