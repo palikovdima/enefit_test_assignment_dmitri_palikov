@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Tests.Mocks;
+using Tests.UnitTests.Controllers.Checkout;
 
-namespace Tests.UnitTests.Checkout.CalculateChange
+namespace Tests.UnitTests.Controllers.Checkout.CalculateChange
 {
     public class CalculateChangeBackAmountTests : BaseCheckoutTest
     {

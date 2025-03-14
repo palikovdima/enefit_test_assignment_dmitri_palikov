@@ -9,8 +9,9 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Tests.UnitTests.Controllers.Checkout;
 
-namespace Tests.UnitTests.Checkout.ValidatePayment
+namespace Tests.UnitTests.Controllers.Checkout.ValidatePayment
 {
     public class ValidatePaymentTests : BaseCheckoutTest
     {
@@ -45,7 +46,10 @@ namespace Tests.UnitTests.Checkout.ValidatePayment
         {
             decimal totalAmount = 10.00m;
             decimal paidAmount = 15.00m;
-            var products = new List<Product> { new Product { Id = 1, Name = "Test Product", Price = 10.00m, Quantity = 1 } };
+            var product = new Product { Id = 1, Name = "Test Product", Price = 10.00m, Quantity = 1 };
+
+            await _productRepositoryMock.Object.AddAsync(product);
+            var products = new List<Product> { product };
             _controller.ControllerContext.HttpContext = new DefaultHttpContext();
             _controller.ControllerContext.HttpContext.Session = new FakeSession();
             _controller.ControllerContext.HttpContext.Session.SetObject("Cart", products);

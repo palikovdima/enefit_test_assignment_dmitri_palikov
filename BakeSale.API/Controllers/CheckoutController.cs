@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using Domain.Service.Currency;
 using Domain.Service.Environment;
+using Infrastructure.Repositories.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -22,7 +23,7 @@ namespace API.Controllers
     public class CheckoutController : Controller
     {
         private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IRepository<Product> _productRepository;
+        private readonly ProductRepository _productRepository;
         private readonly IRepository<TransactionProduct> _transactionProductRepository;
         private readonly IHubContext<ProductHub> _productHubContext;
         private readonly IHubContext<CartHub> _cartHubContext;
@@ -36,7 +37,7 @@ namespace API.Controllers
         private const string SessionKeyCart = "Cart";
         private ISession Session => HttpContext.Session;
 
-        public CheckoutController(IRepository<Transaction> transactionRepository, IRepository<Product> productRepository,
+        public CheckoutController(IRepository<Transaction> transactionRepository, ProductRepository productRepository,
              IRepository<TransactionProduct> transactionProductRepository, IHubContext<ProductHub> productHubContext, 
              IHubContext<CartHub> cartHubContext, ILogger<CheckoutController> logger,
              ILogger<CurrencyService> currencyServiceLogger, ILogger<CurrencyImageService> currencyImageServiceLogger,

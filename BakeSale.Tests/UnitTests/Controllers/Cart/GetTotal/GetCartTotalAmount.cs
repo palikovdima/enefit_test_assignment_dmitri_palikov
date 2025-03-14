@@ -10,8 +10,9 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Tests.UnitTests.Controllers.Cart;
 
-namespace Tests.UnitTests.Cart.GetTotal
+namespace Tests.UnitTests.Controllers.Cart.GetTotal
 {
     public class GetCartTotalAmountTests : BaseCartTest
     {

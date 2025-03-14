@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Infrastructure.Repositories
 {
@@ -22,7 +23,15 @@ namespace Infrastructure.Repositories
 
         public virtual IEnumerable<TEntity> All() => RepositoryDbSet.ToList();
         public virtual async Task<IEnumerable<TEntity>> AllAsync() => await RepositoryDbSet.ToListAsync();
-        public virtual TEntity? Find(params object[] id) => RepositoryDbSet.Find(id);
+        public virtual TEntity? Find(params object[] id)
+        {
+            var entity = RepositoryDbSet.Find(id);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException($"Entity of type {typeof(TEntity).Name} with ID {string.Join(",", id)} not found.");
+            }
+            return entity;
+        }
         public virtual async Task<TEntity> FindAsync(params object[] id)
         {
             var entity = await RepositoryDbSet.FindAsync(id);
@@ -32,7 +41,7 @@ namespace Infrastructure.Repositories
             }
             return entity;
         }
-        public void Add(TEntity entity) => RepositoryDbSet.Add(entity);
+        public virtual void Add(TEntity entity) => RepositoryDbSet.Add(entity);
         public virtual async Task AddAsync(TEntity entity) => await RepositoryDbSet.AddAsync(entity);
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {

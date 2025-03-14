@@ -6,6 +6,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using Domain.Service.Currency;
 using Domain.Service.Environment;
+using Infrastructure.Repositories.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -19,12 +20,11 @@ using System.Threading.Tasks;
 using Tests.Mocks;
 using Xunit;
 
-namespace Tests.UnitTests.Checkout
+namespace Tests.UnitTests.Controllers.Checkout
 {
     public class BaseCheckoutTest
     {
         protected readonly Mock<IRepository<Transaction>> _transactionRepositoryMock;
-        protected readonly Mock<IRepository<Product>> _productRepositoryMock;
         protected readonly Mock<IRepository<TransactionProduct>> _transactionProductRepositoryMock;
         protected readonly Mock<IHubContext<ProductHub>> _productHubContextMock;
         protected readonly Mock<IHubContext<CartHub>> _cartHubContextMock;
@@ -32,12 +32,13 @@ namespace Tests.UnitTests.Checkout
         protected readonly Mock<ILogger<CurrencyService>> _currencyServiceLoggerMock;
         protected readonly Mock<ILogger<CurrencyImageService>> _currencyImageServiceLoggerMock;
         protected readonly Mock<EnvironmentSettingsService> _environmentSettingsServiceMock;
+        protected readonly Mock<ProductRepository> _productRepositoryMock;
+
         protected readonly CheckoutController _controller;
 
         public BaseCheckoutTest()
         {
             _transactionRepositoryMock = new Mock<IRepository<Transaction>>();
-            _productRepositoryMock = new Mock<IRepository<Product>>();
             _transactionProductRepositoryMock = new Mock<IRepository<TransactionProduct>>();
             _productHubContextMock = new Mock<IHubContext<ProductHub>>();
             _cartHubContextMock = new Mock<IHubContext<CartHub>>();
@@ -45,6 +46,8 @@ namespace Tests.UnitTests.Checkout
             _currencyServiceLoggerMock = new Mock<ILogger<CurrencyService>>();
             _currencyImageServiceLoggerMock = new Mock<ILogger<CurrencyImageService>>();
             _environmentSettingsServiceMock = new Mock<EnvironmentSettingsService>(GetEnvironmentSettings());
+
+            _productRepositoryMock = Mocks.MockRepository.GetProductRepository(GetType());
 
             _controller = new CheckoutController(
                 _transactionRepositoryMock.Object,

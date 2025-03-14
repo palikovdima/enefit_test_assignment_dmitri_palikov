@@ -12,15 +12,19 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
+using Tests.UnitTests.Controllers.Cart;
 
-namespace Tests.UnitTests.Cart.Clear
+namespace Tests.UnitTests.Controllers.Cart.Clear
 {
     public class ClearCartTests : BaseCartTest
     {
         [Fact]
         public async Task ClearCart_CartExists_ClearsCart()
         {
-            var cart = new List<Product> { new Product { Id = 1, Price = 10, Quantity = 2 } };
+            var product = new Product { Id = 1, Name = "Brownie", Price = 0.65m, Quantity = 10 };
+            await _productRepositoryMock.Object.AddAsync(product);
+
+            var cart = new List<Product> { product };
             var cartJson = JsonConvert.SerializeObject(cart);
 
             _mockSessionWrapper.Setup(s => s.GetString(SessionKeyCart)).Returns(cartJson);
@@ -47,11 +51,13 @@ namespace Tests.UnitTests.Cart.Clear
 
         [Fact]
         public async Task ClearCart_WhenCartHasManyItems_ShouldClearSuccessfully()
-        {
+        {          
             var cart = new List<Product>();
             for (int i = 0; i < 1000; i++)
             {
-                cart.Add(new Product { Id = i + 1, Price = 1.99m, Quantity = 2 });
+                var productToAdd = new Product { Id = i + 1, Price = 1.99m, Quantity = 2 };
+                await _productRepositoryMock.Object.AddAsync(productToAdd);
+                cart.Add(productToAdd);
             }
 
             var cartJson = JsonConvert.SerializeObject(cart);

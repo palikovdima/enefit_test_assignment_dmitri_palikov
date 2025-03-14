@@ -6,22 +6,31 @@ using System.Threading.Tasks;
 using API.Controllers;
 using Domain.Entities;
 using Domain.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.Repositories.Product;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
+using Tests.Mocks;
 
-namespace Tests.UnitTests.Products
+namespace Tests.UnitTests.Controllers.Products
 {
     public abstract class BaseProductsTest
     {
-        protected readonly Mock<IRepository<Product>> _productRepositoryMock;
         protected readonly Mock<ILogger<ProductsController>> _loggerMock;
+        protected readonly Mock<ProductRepository> _productRepositoryMock;
         protected readonly ProductsController _controller;
 
         protected BaseProductsTest()
         {
-            _productRepositoryMock = new Mock<IRepository<Product>>();
             _loggerMock = new Mock<ILogger<ProductsController>>();
+
+            _productRepositoryMock = Mocks.MockRepository.GetProductRepository(GetType());
+
             _controller = new ProductsController(_productRepositoryMock.Object, _loggerMock.Object);
         }
 
@@ -48,5 +57,6 @@ namespace Tests.UnitTests.Products
             var result = await _controller.GetProduct(id);
             return Assert.IsType<NotFoundObjectResult>(result.Result);
         }
+
     }
 }

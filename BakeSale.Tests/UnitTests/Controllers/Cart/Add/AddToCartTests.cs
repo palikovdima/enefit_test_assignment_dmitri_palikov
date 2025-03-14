@@ -7,22 +7,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
+using Tests.UnitTests.Controllers.Cart;
+using Xunit.Abstractions;
 
-namespace Tests.UnitTests.Cart.Add
+namespace Tests.UnitTests.Controllers.Cart.Add
 {
     public class AddToCartTests : BaseCartTest
     {
+        private readonly ITestOutputHelper _output;
+
+        public AddToCartTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
         [Fact]
         public async Task AddToCart_WhenProductExists_ShouldIncreaseCartCount()
         {
             var product = new Product { Id = 1, Name = "Brownie", Price = 0.65m, Quantity = 10 };
 
-            _mockProductRepository.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
+            await _productRepositoryMock.Object.AddAsync(product);
+
+            var products = await _productRepositoryMock.Object.AllAsync();
+
+            _output.WriteLine($"Products in DB: {string.Join(", ", products.Select(p => p.Id))}");
+
+            _productRepositoryMock.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
 
             var result = await _controller.AddToCart(product.Id);
 
             result.Should().BeOfType<OkObjectResult>();
-            _mockProductRepository.Verify(r => r.FindAsync(product.Id), Times.Once);
+            _productRepositoryMock.Verify(r => r.FindAsync(product.Id), Times.Once);
             VerifyClientProxies();
         }
 
@@ -30,7 +45,7 @@ namespace Tests.UnitTests.Cart.Add
         public async Task AddToCart_ProductDoesNotExist_ReturnsBadRequest()
         {
             var productId = 1;
-            _mockProductRepository.Setup(repo => repo.FindAsync(productId)).ReturnsAsync((Product?)null);
+            _productRepositoryMock.Setup(repo => repo.FindAsync(productId)).ReturnsAsync((Product?)null);
 
             var result = await _controller.AddToCart(productId);
 
@@ -44,7 +59,7 @@ namespace Tests.UnitTests.Cart.Add
         {
             var product = new Product { Id = 1, Name = "Brownie", Price = 0.65m, Quantity = 0 };
 
-            _mockProductRepository.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
+            _productRepositoryMock.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
 
             var result = await _controller.AddToCart(product.Id);
 
@@ -57,7 +72,7 @@ namespace Tests.UnitTests.Cart.Add
         {
             var productId = 1;
 
-            _mockProductRepository.Setup(r => r.FindAsync(productId)).ThrowsAsync(new Exception("Database error"));
+            _productRepositoryMock.Setup(r => r.FindAsync(productId)).ThrowsAsync(new Exception("Database error"));
 
             var result = await _controller.AddToCart(productId);
 
@@ -70,7 +85,9 @@ namespace Tests.UnitTests.Cart.Add
         {
             var product = new Product { Id = 1, Name = "Brownie", Price = 0.65m, Quantity = 10 };
 
-            _mockProductRepository.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
+            await _productRepositoryMock.Object.AddAsync(product);
+
+            _productRepositoryMock.Setup(r => r.FindAsync(product.Id)).ReturnsAsync(product);
 
             _mockSessionWrapper.Setup(s => s.GetObject<List<Product>>(SessionKeyCart)).Returns((List<Product>?)null!);
 

@@ -11,8 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
+using Tests.UnitTests.Controllers.Cart;
 
-namespace Tests.UnitTests.Cart.Get
+namespace Tests.UnitTests.Controllers.Cart.Get
 {
     public class GetCartTests : BaseCartTest
     {

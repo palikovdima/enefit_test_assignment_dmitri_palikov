@@ -1,0 +1,18 @@
+// Purpose: Commands to push docker images to docker hub
+
+docker tag bakesale-backend dmpali/bakesale-backend:latest
+docker tag bakesale-frontend dmpali/bakesale-frontend:latest 
+docker tag postgres:15 dmpali/bakesale-db:latest
+
+docker push dmpali/bakesale-frontend:latest
+docker push dmpali/bakesale-backend:latest 
+docker push dmpali/bakesale-db:latest
+// Pull the images from docker hubdocker pull dmpali/bakesale-backend:latest
+docker pull dmpali/bakesale-frontend:latest
+docker pull dmpali/bakesale-db:latest
+
+// Run the images
+
+docker run -d -p 7190:7190 dmpali/bakesale-backend:latest
+docker run -d -p 62170:80 dmpali/bakesale-frontend:latest
+docker run -d -p 5433:5432 dmpali/bakesale-db:latest

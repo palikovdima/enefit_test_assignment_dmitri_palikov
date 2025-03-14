@@ -7,6 +7,7 @@ using API.Configurations.Session;
 using API.Hubs;
 using Domain.Entities;
 using Domain.Interfaces;
+using Infrastructure.Repositories.Product;
 
 
 namespace API.Controllers
@@ -21,7 +22,7 @@ namespace API.Controllers
     {
         private const string SessionKeyCart = "Cart";
 
-        private readonly IRepository<Product> _productRepository;
+        private readonly ProductRepository _productRepository;
 
         private readonly IHubContext<ProductHub> _productHubContext;
         private readonly IHubContext<CartHub> _cartHubContext;
@@ -31,7 +32,7 @@ namespace API.Controllers
 
         private readonly ISessionWrapper _sessionWrapper;
 
-        public CartController(IRepository<Product> productRepository, IHubContext<ProductHub> productHubContext, 
+        public CartController(ProductRepository productRepository, IHubContext<ProductHub> productHubContext, 
             IHubContext<CartHub> cartHubContext, ILogger<CartController> logger, ISessionWrapper sessionWrapper)
         {
             _productRepository = productRepository;

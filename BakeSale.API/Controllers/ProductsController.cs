@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Infrastructure.Repositories.Product;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace API.Controllers
     [ApiVersion("1.0")]
     public class ProductsController: ControllerBase
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly ProductRepository _productRepository;
         private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(IRepository<Product> productRepository, ILogger<ProductsController> logger)
+        public ProductsController(ProductRepository productRepository, ILogger<ProductsController> logger)
         {
             _productRepository = productRepository;
             _logger = logger;

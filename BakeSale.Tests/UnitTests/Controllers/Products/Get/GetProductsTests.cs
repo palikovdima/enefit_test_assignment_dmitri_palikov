@@ -7,10 +7,12 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tests.UnitTests.Products;
 using Xunit;
+using Tests.UnitTests.Controllers.Products;
+using Tests.Mocks;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
-namespace Tests.UnitTests.Products.Get
+namespace Tests.UnitTests.Controllers.Products.Get
 {
     public class GetProductsTests : BaseProductsTest
     {

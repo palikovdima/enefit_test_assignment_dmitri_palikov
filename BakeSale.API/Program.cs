@@ -19,6 +19,7 @@ using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Domain.Service.Environment;
+using Infrastructure.Repositories.Product;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +71,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ISessionWrapper, SessionWrapper>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+
+builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddScoped<IDataContext>(provider => provider.GetRequiredService<AppDbContext>());
 

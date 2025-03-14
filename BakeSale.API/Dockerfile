@@ -1,7 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
+COPY *.props .
 COPY *.sln . 
+
+COPY BakeSale.API/*.csproj ./BakeSale.API/
+COPY BakeSale.Domain/*.csproj ./BakeSale.Domain/
+COPY BakeSale.Infrastructure/*.csproj ./BakeSale.Infrastructure/
+COPY BakeSale.Tests/*.csproj ./BakeSale.Tests/
+COPY ClientApp/clientapp.client/*.esproj ./ClientApp/clientapp.client/
+
+RUN dotnet restore
+
 COPY BakeSale.API/ ./BakeSale.API/
 COPY BakeSale.API/Config/Images /app/Config/Images
 COPY BakeSale.API/Resources /app/Resources
@@ -9,8 +19,6 @@ COPY BakeSale.Domain/ ./BakeSale.Domain/
 COPY BakeSale.Infrastructure/ ./BakeSale.Infrastructure/
 COPY BakeSale.Tests/ ./BakeSale.Tests/
 COPY ClientApp/clientapp.client/ ./ClientApp/clientapp.client/
-
-RUN dotnet restore
 
 WORKDIR /app/BakeSale.API
 RUN dotnet publish -c Release -o out
